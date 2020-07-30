@@ -9,6 +9,16 @@
 
 <body>
 
+  <form>
+    <p>
+      <label for="title">movie</label>
+      <input type="text" name="title" id="title">
+    </p>
+    <p>
+      <button id="search">Search Movie!</button>
+    </p>
+  </form>
+
   <div id="movie"></div>
 
 
@@ -17,19 +27,24 @@
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script>
 
-    $.ajax('https://www.omdbapi.com/?t=9&apikey=5e2d13')
-      .then(movie => {
-        $('#movie').html(`
+    $('#search').click(function (event) {
+      event.preventDefault()
+      let title = $('#title').val()
+      console.log(title)
+
+      $.ajax(`https://www.omdbapi.com/?t=${title}&apikey=5e2d13`)
+        .then(movie => {
+          $('#movie').html(`
           <img src="${movie.Poster}" alt="${movie.Title}">
           <h1>${movie.Title}
           <h3>Directed by ${movie.Director}</h3>
           <p>${movie.Plot}</p>
         `)
-      })
-      .catch(err => {
-        console.log('error')
-      })
-
+        })
+        .catch(err => {
+          console.log('error')
+        })
+    })
   </script>
 </body>
 
