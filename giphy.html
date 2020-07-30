@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <form>
+    <p>
+      <label for="gif">Search for GIF</label>
+      <input type="text" name="title" id="gif">
+    </p>
+    <p>
+      <button id="search">Search GIFs!</button>
+    </p>
+  </form>
+
+  <div id="results"></div>
+
+
+
+
+  <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+
+    const $ = document.querySelector
+
+    document.getElementById('search').addEventListener('click', event => {
+      event.preventDefault()
+      let gif = document.getElementById('gif').value
+      axios.get(`http://api.giphy.com/v1/gifs/search?q=${gif}&api_key=f3lKJ52za9QKZQIXqSu3zXNo5Q1r34ag&limit=5`)
+        .then(res => {
+          let gifData = res.data.data
+
+          let resultDiv = document.createElement('div')
+          resultDiv.innerHTML = `
+            <embed type="video/webm" src="${gifData[0].embed_url}" width="400" height="300">
+            <embed type="video/webm" src="${gifData[1].embed_url}" width="400" height="300">
+            <embed type="video/webm" src="${gifData[2].embed_url}" width="400" height="300">
+            <embed type="video/webm" src="${gifData[3].embed_url}" width="400" height="300">
+          `
+          document.getElementById('results').prepend(resultDiv)
+        })
+        .catch(err => {
+          console.log('There was an error')
+        })
+    })
+
+
+    // $('#search').click(function (event) {
+    //   event.preventDefault()
+
+    //   let title = $('#title').val()
+    //   console.log(title)
+
+    //   document.createElement
+
+    //   document.querySelector
+
+    //   $.ajax(`https://www.omdbapi.com/?t=${title}&apikey=5e2d13`)
+    //     .then(movie => {
+    //       $('#movie').prepend(`
+    //       <img src="${movie.Poster}" alt="${movie.Title}">
+    //       <h1>${movie.Title}
+    //       <h3>Directed by ${movie.Director}</h3>
+    //       <p>${movie.Plot}</p>
+    //     `)
+    //     })
+    //     .catch(err => {
+    //       console.log('error')
+    //     })
+
+    //   $('#title').val('')
+    // })
+  </script>
+</body>
+
+</html>

@@ -24,27 +24,30 @@
 
 
 
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
 
-    $('#search').click(function (event) {
-      event.preventDefault()
-      let title = $('#title').val()
-      console.log(title)
+    const $ = document.querySelector
 
-      $.ajax(`https://www.omdbapi.com/?t=${title}&apikey=5e2d13`)
-        .then(movie => {
-          $('#movie').html(`
-          <img src="${movie.Poster}" alt="${movie.Title}">
-          <h1>${movie.Title}
-          <h3>Directed by ${movie.Director}</h3>
-          <p>${movie.Plot}</p>
-        `)
+    document.getElementById('search').addEventListener('click', event => {
+      event.preventDefault()
+      let title = document.getElementById('title').value
+      axios.get(`https://www.omdbapi.com/?t=${title}&apikey=5e2d13`)
+        .then(res => {
+          let movieElem = document.createElement('div')
+          movieElem.innerHTML = ` 
+            <img src="${res.data.movie.Poster}" alt="${movie.Title}">
+            <h1>${data.movie.Title}
+            <h3>Directed by ${data.movie.Director}</h3>
+            <p>${data.movie.Plot}</p>
+          `
         })
         .catch(err => {
-          console.log('error')
+          console.log('There was an error')
         })
     })
+
   </script>
 </body>
 
