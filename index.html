@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <div id="movie"></div>
+
+
+
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script>
+
+    $.ajax('https://www.omdbapi.com/?t=9&apikey=5e2d13')
+      .then(movie => {
+        $('#movie').html(`
+          <img src="${movie.Poster}" alt="${movie.Title}">
+          <h1>${movie.Title}
+          <h3>Directed by ${movie.Director}</h3>
+          <p>${movie.Plot}</p>
+        `)
+      })
+      .catch(err => {
+        console.log('error')
+      })
+
+  </script>
+</body>
+
+</html>
